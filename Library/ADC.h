@@ -5,13 +5,13 @@
 #include "SystemStructures.h"
 
 typedef struct {
-	volatile uint32_t CR;
-	volatile uint32_t GDR;
-	uint32_t          RESERVED0;
-	volatile uint32_t INTEN;
-	volatile uint32_t DR[8];
-	volatile uint32_t STAT;
-	volatile uint32_t TRM;
+    volatile uint32_t CR;
+    volatile uint32_t GDR;
+    uint32_t RESERVED0;
+    volatile uint32_t INTEN;
+    volatile uint32_t DR[8];
+    volatile uint32_t STAT;
+    volatile uint32_t TRM;
 } ADC_TypeDef;
 
 #define ADC_CLOCK_FREQUENCY 5
@@ -36,4 +36,5 @@ void ADC_Start(void);
 void ADC_Stop(void);
 
 uint32_t ADC_Read(uint32_t channel, uint32_t range);
+
 #endif
