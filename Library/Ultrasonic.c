@@ -30,7 +30,7 @@ void Ultrasonic_Trigger_Timer_Init() {
 	
 	NVIC_EnableIRQ(TIMER2_IRQn);
 	
-	NVIC_SetPriority(TIMER2_IRQn,5);
+	NVIC_SetPriority(TIMER2_IRQn, 5);
 	
 	NVIC_ClearPendingIRQ(TIMER2_IRQn);
 }
