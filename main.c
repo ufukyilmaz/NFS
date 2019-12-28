@@ -2,12 +2,12 @@
 
 #include "Library/Ultrasonic.h"
 #include "Library/SystemStructures.h"
-#include "Library/Timer.h"
+//#include "Library/Timer.h"
 
 void init() {
-	Ultrasonic_Init();
-	Ultrasonic_Trigger_Timer_Init();
-	Ultrasonic_Capture_Timer_Init();
+	//Ultrasonic_Init();
+	//Ultrasonic_Trigger_Timer_Init();
+	//Ultrasonic_Capture_Timer_Init();
 	
 	LED1_Init();
 	LED2_Init();
@@ -19,7 +19,7 @@ void init() {
 	LED3_Off();
 	LED4_Off();
 	
-	Ultrasonic_Start_Trigger_Timer();
+	//Ultrasonic_Start_Trigger_Timer();
 }
 
 //Calculate distance from duration. (Also write the formula to paper)
@@ -30,7 +30,7 @@ void init() {
 //When Ultrasonic Sensor detects obstacles which are far from 30 cm, turn off all the LEDs.
 
 void update() {
-	
+	LED1_On();
 }
 
 int main() {

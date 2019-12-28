@@ -1,0 +1,13 @@
+.\objects\speedometer.o: Speedometer.c
+.\objects\speedometer.o: Speedometer.h
+.\objects\speedometer.o: External.h
+.\objects\speedometer.o: D:\Keil\LPC4000_DFP\2.1.0\Device\Include\LPC407x_8x_177x_8x.h
+.\objects\speedometer.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\core_cm4.h
+.\objects\speedometer.o: D:\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\speedometer.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_version.h
+.\objects\speedometer.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_compiler.h
+.\objects\speedometer.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_armcc.h
+.\objects\speedometer.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\mpu_armv7.h
+.\objects\speedometer.o: D:\Keil\LPC4000_DFP\2.1.0\Device\Include\system_LPC407x_8x_177x_8x.h
+.\objects\speedometer.o: Car.h
+.\objects\speedometer.o: Library/SystemStructures.h

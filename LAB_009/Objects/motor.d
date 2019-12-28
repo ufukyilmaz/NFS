@@ -1,0 +1,13 @@
+.\objects\motor.o: Motor.c
+.\objects\motor.o: Motor.h
+.\objects\motor.o: D:\Keil\LPC4000_DFP\2.1.0\Device\Include\LPC407x_8x_177x_8x.h
+.\objects\motor.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\core_cm4.h
+.\objects\motor.o: D:\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\motor.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_version.h
+.\objects\motor.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_compiler.h
+.\objects\motor.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_armcc.h
+.\objects\motor.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\mpu_armv7.h
+.\objects\motor.o: D:\Keil\LPC4000_DFP\2.1.0\Device\Include\system_LPC407x_8x_177x_8x.h
+.\objects\motor.o: Library/SystemStructures.h
+.\objects\motor.o: Library/GPIO.h
+.\objects\motor.o: PWM.h
