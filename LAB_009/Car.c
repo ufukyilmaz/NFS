@@ -2,10 +2,11 @@
 #include "Led.h"
 #include "Motor.h"
 #include "LDR.h"
-#include "Trimpot.h"
-#include "Library/Timer.h"
+#include "Timer.h"
+#include "Potentiometer.h"
 #include "HM10.h"
 #include "External.h"
+#include "Ultrasonic.h"
 
 Car_Status STATUS;
 Operation_Mode MODE;
@@ -14,11 +15,15 @@ void Car_Init(){
 	External_Init();
 	HM10_Init();
 	LDR_Init();
-	Trimpot_Init();
 	Timer_Init();
+	Potentiometer_Init();
 	LED_Init();
 	Motor_Init();
-	
+	Ultrasonic_Init();
+	Ultrasonic_Trigger_Timer_Init();
+	Ultrasonic_Capture_Timer_Init();	
+	Ultrasonic_Start_Trigger_Timer();
+
 	STATUS = STOPPED;
 	MODE = TEST;
 }
@@ -42,7 +47,7 @@ void Car_Right(int speed){
 	if(Turn_Counter >= 12){
 		Car_Stop();
 	} else {
-		Motor_Backward(speed);
+		Motor_Right(speed);	
 	}
 }
 
@@ -53,7 +58,7 @@ void Car_Left(int speed){
 	if(Turn_Counter >= 12){
 		Car_Stop();
 	} else {
-		Motor_Forward(speed);
+		Motor_Left(speed);
 	}
 }
 
@@ -65,13 +70,26 @@ void Car_Stop(){
 void Car_Execute(){
 	uint32_t Left_LDR, Rigth_LDR, Speed, Distance;
 	
-	Distance = 20;
+	Distance = Read_Distance();
 	Left_LDR = Read_Left_LDR();
 	Rigth_LDR = Read_Right_LDR();
-	Speed = Read_Trimpot();
+	Speed = Read_Potentiometer();
+	
+	if(Distance < 15)
+		STATUS = FORWARD;
+	else if(Distance < 25)
+		STATUS = BACKWARD;
+	else if(Distance < 35)
+		STATUS = LEFT;
+	else
+		STATUS = RIGHT;
 	
 	if(Left_LDR < 300 || Rigth_LDR < 300){
 		Car_Stop();
+		if(MODE == AUTO){
+			HM10_SendCommand("FINISH\r\n");
+			STATUS = STOPPED;
+		}
 	} else {
 		switch (STATUS){
 			case STOPPED:

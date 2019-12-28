@@ -2,10 +2,10 @@
 
 uint32_t ADC_Last_Left = 0;
 uint32_t ADC_Last_Right = 0;
-uint32_t ADC_Last_Trimpot = 0;
+uint32_t ADC_Last_Potentiometer = 0;
 uint8_t ADC_New_Data_Available_Left = 0;
 uint8_t ADC_New_Data_Available_Right = 0;
-uint8_t ADC_New_Data_Available_Trimpot = 0;
+uint8_t ADC_New_Data_Available_Potentiometer = 0;
 
 void ADC_Init(volatile uint32_t *IOCON, uint32_t IOCON_FUNC, uint32_t channel) {
 	//Change the function value of pin to ADC.
@@ -50,9 +50,9 @@ uint32_t ADC_GetLastValueRight() {
 	return ADC_Last_Right;
 }
 
-uint32_t ADC_GetLastValueTrimpot() {
-	ADC_New_Data_Available_Trimpot = 0;
-	return ADC_Last_Trimpot;
+uint32_t ADC_GetLastValuePotentiometer() {
+	ADC_New_Data_Available_Potentiometer = 0;
+	return ADC_Last_Potentiometer;
 }
 void ADC_IRQHandler() {
 	ADC->GDR &= ~((uint32_t)1 << 31);
@@ -60,9 +60,9 @@ void ADC_IRQHandler() {
 	//Write the converted data (only the converted data) to ADC_Last variable.
 	ADC_Last_Left = (ADC->DR[3] >> 4) & (0xFFF); 
 	ADC_Last_Right = (ADC->DR[2] >> 4) & (0xFFF); 
-	ADC_Last_Trimpot = (ADC->DR[1] >> 4) & (0xFFF); 
+	ADC_Last_Potentiometer = (ADC->DR[1] >> 4) & (0xFFF); 
 	
 	ADC_New_Data_Available_Left = 1;
 	ADC_New_Data_Available_Right = 1;
-	ADC_New_Data_Available_Trimpot = 1;
+	ADC_New_Data_Available_Potentiometer = 1;
 }

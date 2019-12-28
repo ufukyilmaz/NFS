@@ -403,11 +403,6 @@
               <FilePath>.\Library\Wait.c</FilePath>
             </File>
             <File>
-              <FileName>Ultrasonic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Library\Ultrasonic.c</FilePath>
-            </File>
-            <File>
               <FileName>Timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Library\Timer.c</FilePath>
@@ -473,19 +468,9 @@
               <FilePath>.\LDR.c</FilePath>
             </File>
             <File>
-              <FileName>Trimpot.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Trimpot.c</FilePath>
-            </File>
-            <File>
               <FileName>LDR.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\LDR.h</FilePath>
-            </File>
-            <File>
-              <FileName>Trimpot.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Trimpot.h</FilePath>
             </File>
             <File>
               <FileName>HM10.h</FileName>
@@ -498,16 +483,6 @@
               <FilePath>.\HM10.c</FilePath>
             </File>
             <File>
-              <FileName>Speedometer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Speedometer.c</FilePath>
-            </File>
-            <File>
-              <FileName>Speedometer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Speedometer.h</FilePath>
-            </File>
-            <File>
               <FileName>External.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\External.h</FilePath>
@@ -516,6 +491,31 @@
               <FileName>External.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\External.c</FilePath>
+            </File>
+            <File>
+              <FileName>Potentiometer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Potentiometer.c</FilePath>
+            </File>
+            <File>
+              <FileName>Potentiometer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Potentiometer.h</FilePath>
+            </File>
+            <File>
+              <FileName>Timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>Ultrasonic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Ultrasonic.c</FilePath>
+            </File>
+            <File>
+              <FileName>Ultrasonic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Ultrasonic.h</FilePath>
             </File>
           </Files>
         </Group>

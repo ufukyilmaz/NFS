@@ -1,6 +1,6 @@
-.\objects\ultrasonic.o: Library\Ultrasonic.c
-.\objects\ultrasonic.o: Library\Ultrasonic.h
-.\objects\ultrasonic.o: Library\GPIO.h
+.\objects\ultrasonic.o: Ultrasonic.c
+.\objects\ultrasonic.o: Ultrasonic.h
+.\objects\ultrasonic.o: Timer.h
 .\objects\ultrasonic.o: D:\Keil\LPC4000_DFP\2.1.0\Device\Include\LPC407x_8x_177x_8x.h
 .\objects\ultrasonic.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\core_cm4.h
 .\objects\ultrasonic.o: D:\ARM\ARMCC\Bin\..\include\stdint.h
@@ -9,5 +9,4 @@
 .\objects\ultrasonic.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_armcc.h
 .\objects\ultrasonic.o: D:\ARM\CMSIS\5.5.1\CMSIS\Core\Include\mpu_armv7.h
 .\objects\ultrasonic.o: D:\Keil\LPC4000_DFP\2.1.0\Device\Include\system_LPC407x_8x_177x_8x.h
-.\objects\ultrasonic.o: Library\Timer.h
-.\objects\ultrasonic.o: Library\SystemStructures.h
+.\objects\ultrasonic.o: Library/SystemStructures.h

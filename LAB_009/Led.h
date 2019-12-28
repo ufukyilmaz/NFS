@@ -8,7 +8,7 @@
 #define LED1_MASK			((uint32_t) 1 << 6)
 
 #define LED2_PORT			PORT0
-#define LED2_MASK			((uint32_t) 1 << 23)
+#define LED2_MASK			((uint32_t) 1 << 21)
 
 #define LED3_PORT			PORT1
 #define LED3_MASK			((uint32_t) 1 << 23)

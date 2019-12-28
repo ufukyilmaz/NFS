@@ -13,9 +13,10 @@
 .\objects\car.o: Library/SystemStructures.h
 .\objects\car.o: Motor.h
 .\objects\car.o: LDR.h
-.\objects\car.o: Trimpot.h
-.\objects\car.o: Library/Timer.h
+.\objects\car.o: Timer.h
+.\objects\car.o: Potentiometer.h
 .\objects\car.o: HM10.h
 .\objects\car.o: D:\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\car.o: D:\ARM\ARMCC\Bin\..\include\string.h
 .\objects\car.o: External.h
+.\objects\car.o: Ultrasonic.h

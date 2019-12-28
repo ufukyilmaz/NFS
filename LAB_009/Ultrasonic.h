@@ -1,9 +1,7 @@
 #ifndef ULTRASONIC_H
 #define ULTRASONIC_H
 
-#include "GPIO.h"
 #include "Timer.h"
-#include "SystemStructures.h"
 
 //Write IOCON Register Address of Trigger Pin.
 #define IOCON_TRIGGER_ADDRESS	0x4002C024
@@ -27,5 +25,5 @@ void Ultrasonic_Capture_Timer_Init(void);
 
 void Ultrasonic_Start_Trigger_Timer(void);
 
-int Read_Distance();
+uint32_t Read_Distance();
 #endif

@@ -28,16 +28,16 @@ typedef struct {
 
 extern uint32_t ADC_Last_Left;
 extern uint32_t ADC_Last_Right;
-extern uint32_t ADC_Last_Trimpot;
+extern uint32_t ADC_Last_Potentiometer;
 extern uint8_t ADC_New_Data_Available_Left;
 extern uint8_t ADC_New_Data_Available_Right;
-extern uint8_t ADC_New_Data_Available_Trimpot;
+extern uint8_t ADC_New_Data_Available_Potentiometer;
 
 void ADC_Init(volatile uint32_t *IOCON, uint32_t IOCON_FUNC, uint32_t channel);
 void ADC_Start(void);
 void ADC_Stop(void);
 uint32_t ADC_GetLastValueLeft(void);
 uint32_t ADC_GetLastValueRight(void);
-uint32_t ADC_GetLastValueTrimpot(void);
+uint32_t ADC_GetLastValuePotentiometer(void);
 
 #endif

@@ -32,6 +32,20 @@ void Motor_Backward(int speed){
 	PWM_Motor_Config(speed);
 }
 
+void Motor_Left(int speed){
+	GPIO_PIN_Write(IN1_PORT, IN1_MASK, LOW);
+	GPIO_PIN_Write(IN2_PORT, IN2_MASK, HIGH);
+	
+	PWM_Motor_Config(speed);
+}
+
+void Motor_Right(int speed){
+	GPIO_PIN_Write(IN1_PORT, IN1_MASK, HIGH);
+	GPIO_PIN_Write(IN2_PORT, IN2_MASK, LOW);
+	
+	PWM_Motor_Config(speed);
+}
+
 void PWM_Motor_Config(uint32_t T){
 	PWM_Write(MOTOR1_PWM_TYPE, MOTOR1_PWM_CHANNEL, T);
 }
