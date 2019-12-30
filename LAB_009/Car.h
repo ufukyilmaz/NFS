@@ -17,8 +17,8 @@ typedef enum {
 void Car_Init(void);
 void Car_Forward(int speed);
 void Car_Backward(int speed);
-void Car_Right(int speed);
-void Car_Left(int speed);
+void Car_Right(int speed, int turn);
+void Car_Left(int speed, int turn);
 void Car_Stop(void);
 
 void Car_Execute(void);

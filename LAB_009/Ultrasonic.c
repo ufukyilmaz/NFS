@@ -12,6 +12,10 @@ uint8_t ultrasonicSensorNewDataAvailable = 0;
 uint8_t ultrasonicSensorTriggerStart = 0;
 uint8_t ultrasonicSensorCaptureRisingEdge = 0;
 
+uint32_t const dataSize = 21;
+sensor_data_t sensorData[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+uint32_t pointer = 0;
+
 void Ultrasonic_Init() {
 	IOCON_TRIGGER |= 0x03;
 	IOCON_ECHO |= 0x03;
@@ -115,13 +119,45 @@ void TIMER3_IRQHandler() {
 	else {
 		ultrasonicSensorFallingCaptureTime = TIMER3->CR0;
 		ultrasonicSensorNewDataAvailable = 1;
-		Distance = (ultrasonicSensorFallingCaptureTime - ultrasonicSensorRisingCaptureTime) / 58;
-
+		sensorData[pointer%21] = (ultrasonicSensorFallingCaptureTime - ultrasonicSensorRisingCaptureTime) / 58;
+		pointer ++;
 		LPC_TIM3->CCR = (1 << 0) | (1 << 2);
 		ultrasonicSensorCaptureRisingEdge = 1;
 	}
 }
 
+void bubbleSort(sensor_data_t* data) {
+	uint8_t i, j;
+	sensor_data_t temp;
+	for(i=0; i<WINDOW_SIZE-1; i++) {
+		for(j=i+1; j<WINDOW_SIZE; j++) {
+			if(data[j] < data[i]) {
+				temp = data[i];
+				data[i] = data[j];
+				data[j] = temp;
+			}
+		}
+	}
+}
+
+sensor_data_t median(sensor_data_t* data) {
+	sensor_data_t sortedData[WINDOW_SIZE];
+	uint8_t index;
+	for(index=0; index<WINDOW_SIZE; index++) {
+		sortedData[index] = data[index];
+	}
+	bubbleSort(sortedData);
+	if(WINDOW_SIZE % 2 == 1) {
+			return sortedData[WINDOW_SIZE/2];
+	} else {
+			return (sortedData[WINDOW_SIZE/2 - 1] + sortedData[WINDOW_SIZE/2]) / 2.0;
+	}
+}
+
 uint32_t Read_Distance(){
-	 return Distance;
+	return median(&sensorData[(pointer-3) % 21]);
+}
+
+uint32_t Read_Difference(){
+	return median(&sensorData[(pointer-13) % 21]);
 }

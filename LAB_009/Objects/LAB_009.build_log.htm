@@ -22,18 +22,20 @@ Dialog DLL:      TCM.DLL V1.36.2.0
  
 <h2>Project:</h2>
 C:\Users\user\Desktop\LAB_009\LAB_009.uvprojx
-Project File Date:  12/28/2019
+Project File Date:  12/30/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\ARM\ARMCC\Bin'
 Build target 'NXP LPC4088'
 compiling Car.c...
-Ultrasonic.h(28): warning:  #1295-D: Deprecated declaration Read_Distance - give arg types
+Ultrasonic.h(36): warning:  #1295-D: Deprecated declaration Read_Distance - give arg types
   uint32_t Read_Distance();
-Car.c: 1 warning, 0 errors
+Ultrasonic.h(37): warning:  #1295-D: Deprecated declaration Read_Difference - give arg types
+  uint32_t Read_Difference();
+Car.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=5372 RO-data=436 RW-data=68 ZI-data=1284  
-".\Objects\LAB_009.axf" - 0 Error(s), 1 Warning(s).
+Program Size: Code=6400 RO-data=436 RW-data=96 ZI-data=1368  
+".\Objects\LAB_009.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -60,12 +62,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.2.0
 
    * Component: Keil::Device:Startup:1.0.1
-      Include file:  Device\Include\system_LPC407x_8x_177x_8x.h
-      Include file:  RTE_Driver\Config\RTE_Device.h
       Include file:  Device\Include\LPC407x_8x_177x_8x.h
+      Include file:  RTE_Driver\Config\RTE_Device.h
+      Include file:  Device\Include\system_LPC407x_8x_177x_8x.h
       Source file:   Device\Source\ARM\startup_LPC407x_8x_177x_8x.s
       Source file:   Device\Source\system_LPC407x_8x_177x_8x.c
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>

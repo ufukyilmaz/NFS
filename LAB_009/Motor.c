@@ -52,12 +52,30 @@ void Motor_Left(int speed){
 	PWM_Motor_Config(speed);
 }
 
+void Motor_Left_Half(int speed){
+	GPIO_PIN_Write(IN1_PORT, IN1_MASK, LOW);
+	GPIO_PIN_Write(IN2_PORT, IN2_MASK, LOW);
+
+	GPIO_PIN_Write(IN3_PORT, IN3_MASK, HIGH);
+	GPIO_PIN_Write(IN4_PORT, IN4_MASK, LOW);	
+	PWM_Motor_Config(speed);
+}
+
 void Motor_Right(int speed){
 	GPIO_PIN_Write(IN1_PORT, IN1_MASK, HIGH);
 	GPIO_PIN_Write(IN2_PORT, IN2_MASK, LOW);
 	
 	GPIO_PIN_Write(IN3_PORT, IN3_MASK, LOW);
 	GPIO_PIN_Write(IN4_PORT, IN4_MASK, HIGH);
+	PWM_Motor_Config(speed);
+}
+
+void Motor_Right_Half(int speed){
+	GPIO_PIN_Write(IN1_PORT, IN1_MASK, HIGH);
+	GPIO_PIN_Write(IN2_PORT, IN2_MASK, LOW);
+	
+	GPIO_PIN_Write(IN3_PORT, IN3_MASK, LOW);
+	GPIO_PIN_Write(IN4_PORT, IN4_MASK, LOW);
 	PWM_Motor_Config(speed);
 }
 

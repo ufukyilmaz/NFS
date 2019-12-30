@@ -39,7 +39,9 @@ void Motor_Stop(void);
 void Motor_Forward(int speed);
 void Motor_Backward(int speed);
 void Motor_Left(int speed);
+void Motor_Left_Half(int speed);
 void Motor_Right(int speed);
+void Motor_Right_Half(int speed);
 
 void PWM_Motor_Config(uint32_t T);
 #endif
