@@ -12,7 +12,6 @@ void update() {
 
 int main() {
 	init();
-	
 	while(1) {
 		update();
 	}

@@ -19,6 +19,21 @@
 #define IN2_PORT PORT1
 #define IN2_MASK ((uint32_t) 1 << 31)
 
+// P1.3 PWM0[2]
+#define IOCON_MOTOR2_ADDRESS 0x4002C08C
+#define IOCON_MOTOR2 *((volatile uint32_t *) IOCON_MOTOR2_ADDRESS)
+#define IOCON_MOTOR2_FUNC 0x3
+#define MOTOR2_PWM_CHANNEL 2
+#define MOTOR2_PWM_TYPE 0
+
+// IN3 PIN
+#define IN3_PORT PORT0
+#define IN3_MASK ((uint32_t) 1 << 4)
+
+// IN4 PIN
+#define IN4_PORT PORT0
+#define IN4_MASK ((uint32_t) 1 << 5)
+
 void Motor_Init(void);
 void Motor_Stop(void);
 void Motor_Forward(int speed);

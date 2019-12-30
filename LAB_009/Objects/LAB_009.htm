@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\LAB_009.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\LAB_009.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Dec 29 01:10:10 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Dec 29 15:56:13 2019
 <BR><P>
 <H3>Maximum Stack Usage =        340 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -350,7 +350,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Execute
 </UL>
 
-<P><STRONG><a name="[40]"></a>Car_Execute</STRONG> (Thumb, 472 bytes, Stack size 280 bytes, car.o(i.Car_Execute))
+<P><STRONG><a name="[40]"></a>Car_Execute</STRONG> (Thumb, 430 bytes, Stack size 280 bytes, car.o(i.Car_Execute))
 <BR><BR>[Stack]<UL><LI>Max Depth = 332<LI>Call Chain = Car_Execute &rArr; Car_Right &rArr; Car_Stop &rArr; LEDS_Off &rArr; PWM_Config &rArr; PWM_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Read_Right_LDR
@@ -643,7 +643,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Init
 </UL>
 
-<P><STRONG><a name="[3f]"></a>Motor_Backward</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, motor.o(i.Motor_Backward))
+<P><STRONG><a name="[3f]"></a>Motor_Backward</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, motor.o(i.Motor_Backward))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = Motor_Backward &rArr; PWM_Motor_Config &rArr; PWM_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Motor_Config
@@ -652,7 +652,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Backward
 </UL>
 
-<P><STRONG><a name="[4d]"></a>Motor_Forward</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, motor.o(i.Motor_Forward))
+<P><STRONG><a name="[4d]"></a>Motor_Forward</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, motor.o(i.Motor_Forward))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = Motor_Forward &rArr; PWM_Motor_Config &rArr; PWM_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Motor_Config
@@ -661,7 +661,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Forward
 </UL>
 
-<P><STRONG><a name="[55]"></a>Motor_Init</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, motor.o(i.Motor_Init))
+<P><STRONG><a name="[55]"></a>Motor_Init</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, motor.o(i.Motor_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = Motor_Init &rArr; Motor_Stop &rArr; PWM_Motor_Config &rArr; PWM_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Stop
@@ -671,7 +671,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Init
 </UL>
 
-<P><STRONG><a name="[5b]"></a>Motor_Left</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, motor.o(i.Motor_Left))
+<P><STRONG><a name="[5b]"></a>Motor_Left</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, motor.o(i.Motor_Left))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = Motor_Left &rArr; PWM_Motor_Config &rArr; PWM_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Motor_Config
@@ -680,7 +680,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Left
 </UL>
 
-<P><STRONG><a name="[5d]"></a>Motor_Right</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, motor.o(i.Motor_Right))
+<P><STRONG><a name="[5d]"></a>Motor_Right</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, motor.o(i.Motor_Right))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = Motor_Right &rArr; PWM_Motor_Config &rArr; PWM_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Motor_Config
@@ -689,7 +689,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Right
 </UL>
 
-<P><STRONG><a name="[3c]"></a>Motor_Stop</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, motor.o(i.Motor_Stop))
+<P><STRONG><a name="[3c]"></a>Motor_Stop</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, motor.o(i.Motor_Stop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = Motor_Stop &rArr; PWM_Motor_Config &rArr; PWM_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Motor_Config
@@ -725,7 +725,7 @@ Global Symbols
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
 </UL>
 
-<P><STRONG><a name="[6f]"></a>PWM_Motor_Config</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, motor.o(i.PWM_Motor_Config))
+<P><STRONG><a name="[6f]"></a>PWM_Motor_Config</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, motor.o(i.PWM_Motor_Config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = PWM_Motor_Config &rArr; PWM_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_Write

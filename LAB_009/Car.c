@@ -44,7 +44,7 @@ void Car_Right(int speed){
 	LEDS_Right();
 	STATUS = RIGHT;
 
-	if(Turn_Counter >= 12){
+	if(Turn_Counter >= 6){
 		Car_Stop();
 	} else {
 		Motor_Right(speed);	
@@ -55,7 +55,7 @@ void Car_Left(int speed){
 	LEDS_Left();
 	STATUS = LEFT;
 
-	if(Turn_Counter >= 12){
+	if(Turn_Counter >= 6){
 		Car_Stop();
 	} else {
 		Motor_Left(speed);
@@ -75,16 +75,7 @@ void Car_Execute(){
 	Rigth_LDR = Read_Right_LDR();
 	Speed = Read_Potentiometer();
 	
-	if(Distance < 15)
-		STATUS = FORWARD;
-	else if(Distance < 25)
-		STATUS = BACKWARD;
-	else if(Distance < 35)
-		STATUS = LEFT;
-	else
-		STATUS = RIGHT;
-	
-	if(Left_LDR < 300 || Rigth_LDR < 300){
+	if(Left_LDR < 650 || Rigth_LDR < 650){
 		Car_Stop();
 		if(MODE == AUTO){
 			HM10_SendCommand("FINISH\r\n");
