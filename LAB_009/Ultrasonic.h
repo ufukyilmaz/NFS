@@ -33,6 +33,6 @@ void Ultrasonic_Capture_Timer_Init(void);
 
 void Ultrasonic_Start_Trigger_Timer(void);
 
-uint32_t Read_Distance();
-uint32_t Read_Difference();
+int32_t Read_Distance();
+int32_t Read_Difference(int edge);
 #endif

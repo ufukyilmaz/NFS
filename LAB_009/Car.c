@@ -10,8 +10,9 @@
 
 Car_Status STATUS;
 Operation_Mode MODE;
-uint32_t Left_LDR = 900, Rigth_LDR = 900, Speed = 90, Sonar_Distance = 20, Logger = 0;
-int32_t Sonar_Difference = 0;
+uint32_t Left_LDR = 900, Rigth_LDR = 900, Speed = 90, Logger = 0, stat = 0;
+int32_t Sonar_Distance = 25;
+double Sonar_Difference = 0, Error = 0;
 
 void Car_Init(){
 	External_Init();
@@ -34,6 +35,18 @@ void Car_Forward(int speed){
 	LEDS_Forward();
 	Motor_Forward(speed);
 	STATUS = FORWARD;
+}
+
+void Car_Forward_Auto(int speed, int turn){
+	LEDS_Forward();
+	STATUS = FORWARD;
+	
+	if(Turn_Counter >=  turn){
+		Turn_Counter = 0;
+		stat  = 5;
+	} else {
+			Motor_Forward(speed);
+	}
 }
 
 void Car_Backward(int speed){
@@ -61,12 +74,10 @@ void Car_Right_Auto(int speed, int turn){
 	STATUS = RIGHT;
 
 	if(Turn_Counter >= turn){
-		if(MODE == TEST)
-			Car_Stop();
-		else
-			Car_Forward(Speed);
+		Turn_Counter = 0;
+		stat  = 5;
 	} else {
-		Motor_Right_Half(speed);	
+		Motor_Right(speed);
 	}
 }
 
@@ -88,13 +99,13 @@ void Car_Left_Auto(int speed, int turn){
 	LEDS_Left();
 	STATUS = LEFT;
 
-	if(Turn_Counter >= turn){
-		if(MODE == TEST)
-			Car_Stop();
-		else
-			Car_Forward(Speed);
+	if(Turn_Counter >= 3 * turn){
+		Turn_Counter = 0;
+		stat  = 5;
+	} else if(Turn_Counter >= turn){
+		Car_Forward(Speed);
 	} else {
-		Motor_Left_Half(speed);
+		Motor_Left(speed);
 	}
 }
 
@@ -137,42 +148,49 @@ void Execute_Auto_Mode(){
 				STATUS = STOPPED;
 				Logger = Logger + 1;
 			}
-		} else if(Sonar_Distance >= 25 && Sonar_Distance <= 35){
-			Car_Forward(Speed);
-		} else if(Sonar_Difference <= -5){
-			Turn_Counter = 0;
-			Car_Right(Speed, 2);
-		} else if(Sonar_Difference <= -4){
-			Turn_Counter = 0;
-			Car_Right_Auto(Speed, 5);
-		}
-		else if(Sonar_Difference <= -3){
-			Turn_Counter = 0;
-			Car_Right_Auto(Speed, 2);
-		} else if(Sonar_Difference <= -2){
-			Turn_Counter = 0;
-			Car_Right_Auto(Speed, 1);
-		} else if(Sonar_Difference >= 5){
-			Turn_Counter = 0;
-			Car_Left(Speed, 2);
-		} else if(Sonar_Difference >= 4){
-			Turn_Counter = 0;
-			Car_Left_Auto(Speed, 5);
-		} else if(Sonar_Difference >= 3){
-			Turn_Counter = 0;
-			Car_Left_Auto(Speed, 2);
-		} else if(Sonar_Difference >= 2){
-			Turn_Counter = 0;
+		} else if((Sonar_Difference > 20 && stat == 5) || stat == 7){
+				if(stat == 5)
+				Turn_Counter = 0;		
+				stat = 7;
+				Car_Right_Auto(Speed, 2);
+		}else if((Error > 4 && Sonar_Difference < 1 && stat == 5) || stat == 1){
+			if(stat == 5)
+				Turn_Counter = 0;
+			
+			stat = 1;
+			Car_Forward_Auto(Speed, 1);
+		} else if((Error > 4 && Sonar_Difference >= 1 && stat == 5) || stat == 2){
+			if(stat == 5)
+				Turn_Counter = 0;
+		
+			stat = 2;
 			Car_Left_Auto(Speed, 1);
-		} else {
-			Car_Forward(Speed);
+		} else if((Error < -4 && Sonar_Difference <= -1 && stat == 5) || stat == 3){
+			if(stat == 5)
+				Turn_Counter = 0;	
+				
+				stat = 3;
+				Car_Right_Auto(Speed, 1);
+		} else if((Error < -4 && Sonar_Difference > -1 && stat == 5) || stat == 4){
+			if(stat == 5)
+				Turn_Counter = 0;
+			
+			stat = 4;
+			Car_Forward_Auto(Speed, 1);
+		} else if(Turn_Counter == 0 || stat == 0 || stat == 5) {
+			if(stat == 5)
+				Turn_Counter = 0;
+			
+			stat = 0;
+			Car_Forward_Auto(Speed, 1);
 		}
 	}
 }
 
 void Car_Execute(){	
 	Sonar_Distance = Read_Distance();
-	Sonar_Difference = Sonar_Distance - Read_Difference();
+	Error =  Sonar_Distance - 25;
+	Sonar_Difference = Sonar_Distance - (Read_Difference(12) + Read_Difference(6)) * 0.5;
 	Left_LDR = Read_Left_LDR();
 	Rigth_LDR = Read_Right_LDR();
 	Speed = Read_Potentiometer();

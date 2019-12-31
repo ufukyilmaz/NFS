@@ -13,7 +13,7 @@ uint8_t ultrasonicSensorTriggerStart = 0;
 uint8_t ultrasonicSensorCaptureRisingEdge = 0;
 
 uint32_t const dataSize = 21;
-sensor_data_t sensorData[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+sensor_data_t sensorData[] = {25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
 uint32_t pointer = 0;
 
 void Ultrasonic_Init() {
@@ -154,10 +154,10 @@ sensor_data_t median(sensor_data_t* data) {
 	}
 }
 
-uint32_t Read_Distance(){
-	return median(&sensorData[(pointer-3) % 21]);
+int32_t Read_Distance(){
+	return median(&sensorData[(pointer + dataSize - 3) % dataSize]);
 }
 
-uint32_t Read_Difference(){
-	return median(&sensorData[(pointer-13) % 21]);
+int32_t Read_Difference(int edge){
+	return median(&sensorData[(pointer + dataSize - edge) % dataSize]);
 }
