@@ -10,7 +10,7 @@
 
 Car_Status STATUS;
 Operation_Mode MODE;
-uint32_t Left_LDR = 900, Rigth_LDR = 900, Speed = 90, Logger = 0, stat = 0;
+uint32_t Left_LDR = 900, Right_LDR = 900, Speed = 90, Logger = 0, stat = 0;
 int32_t Sonar_Distance = 25;
 double Sonar_Difference = 0, Error = 0;
 
@@ -109,14 +109,24 @@ void Car_Left_Auto(int speed, int turn){
 	}
 }
 
+void Car_Auto(int leftSpeed, int rightSpeed){
+	if(leftSpeed >  70 && rightSpeed > 70)
+		LEDS_Forward();
+	else if(leftSpeed > 70)
+		LEDS_Right();
+	else if(rightSpeed > 70)
+		LEDS_Left();
+	
+	Motor_Auto(leftSpeed, rightSpeed);
+	STATUS = FORWARD;
+}
 void Car_Stop(){
 	LEDS_Off();
 	Motor_Stop();
 }
 
-
 void Execute_Test_Mode(){
-	if(Left_LDR < 650 || Rigth_LDR < 650){
+	if(Left_LDR < 650 || Right_LDR < 650){
 		Car_Stop();
 	} else {
 		switch (STATUS){
@@ -141,7 +151,7 @@ void Execute_Test_Mode(){
 
 void Execute_Auto_Mode(){
 	if(STATUS != STOPPED){
-		if(Left_LDR < 650 || Rigth_LDR < 650){
+		if(Left_LDR < 650 || Right_LDR < 650){
 			if(Logger == 0){
 				Car_Stop();
 				HM10_SendCommand("FINISH\r\n");
@@ -153,7 +163,7 @@ void Execute_Auto_Mode(){
 				Turn_Counter = 0;		
 				stat = 7;
 				Car_Right_Auto(Speed, 2);
-		}else if((Error > 4 && Sonar_Difference < 1 && stat == 5) || stat == 1){
+		} else if((Error > 4 && Sonar_Difference < 1 && stat == 5) || stat == 1){
 			if(stat == 5)
 				Turn_Counter = 0;
 			
@@ -192,7 +202,7 @@ void Car_Execute(){
 	Error =  Sonar_Distance - 25;
 	Sonar_Difference = Sonar_Distance - (Read_Difference(12) + Read_Difference(6)) * 0.5;
 	Left_LDR = Read_Left_LDR();
-	Rigth_LDR = Read_Right_LDR();
+	Right_LDR = Read_Right_LDR();
 	Speed = Read_Potentiometer();
 	
 	if(HM10NewDataAvailable){
