@@ -62,11 +62,23 @@ void Motor_Right(int speed){
 }
 
 void Motor_Auto(int leftSpeed, int rightSpeed){
-	GPIO_PIN_Write(IN1_PORT, IN1_MASK, HIGH);
-	GPIO_PIN_Write(IN2_PORT, IN2_MASK, LOW);
+	if(leftSpeed < 0){
+		GPIO_PIN_Write(IN1_PORT, IN1_MASK, LOW);
+		GPIO_PIN_Write(IN2_PORT, IN2_MASK, HIGH);
+		leftSpeed = leftSpeed * -1;
+	} else{
+		GPIO_PIN_Write(IN1_PORT, IN1_MASK, HIGH);
+		GPIO_PIN_Write(IN2_PORT, IN2_MASK, LOW);
+	}
 	
-	GPIO_PIN_Write(IN3_PORT, IN3_MASK, HIGH);
-	GPIO_PIN_Write(IN4_PORT, IN4_MASK, LOW);
+	if(rightSpeed < 0){
+		GPIO_PIN_Write(IN3_PORT, IN3_MASK, LOW);
+		GPIO_PIN_Write(IN4_PORT, IN4_MASK, HIGH);
+		rightSpeed = rightSpeed * -1;
+	} else{
+		GPIO_PIN_Write(IN3_PORT, IN3_MASK, HIGH);
+		GPIO_PIN_Write(IN4_PORT, IN4_MASK, LOW);
+	}
 	
 	PWM_Write(MOTOR1_PWM_TYPE, MOTOR1_PWM_CHANNEL, leftSpeed);
 	PWM_Write(MOTOR2_PWM_TYPE, MOTOR2_PWM_CHANNEL, rightSpeed);

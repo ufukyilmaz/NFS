@@ -10,7 +10,7 @@
 
 Car_Status STATUS;
 Operation_Mode MODE;
-uint32_t Left_LDR = 900, Right_LDR = 900, Speed = 90, Logger = 0, stat = 0;
+uint32_t Left_LDR = 900, Right_LDR = 900, Speed = 90, Logger = 0, status = 0;
 int32_t Sonar_Distance = 25;
 double Sonar_Difference = 0, Error = 0;
 
@@ -27,8 +27,10 @@ void Car_Init(){
 	Ultrasonic_Capture_Timer_Init();	
 	Ultrasonic_Start_Trigger_Timer();
 
+	
 	STATUS = STOPPED;
 	MODE = TEST;
+	HM10_SendCommand("TESTING\r\n");
 }
 
 void Car_Forward(int speed){
@@ -43,7 +45,7 @@ void Car_Forward_Auto(int speed, int turn){
 	
 	if(Turn_Counter >=  turn){
 		Turn_Counter = 0;
-		stat  = 5;
+		status  = 5;
 	} else {
 			Motor_Forward(speed);
 	}
@@ -75,7 +77,7 @@ void Car_Right_Auto(int speed, int turn){
 
 	if(Turn_Counter >= turn){
 		Turn_Counter = 0;
-		stat  = 5;
+		status  = 5;
 	} else {
 		Motor_Right(speed);
 	}
@@ -101,7 +103,7 @@ void Car_Left_Auto(int speed, int turn){
 
 	if(Turn_Counter >= 3 * turn){
 		Turn_Counter = 0;
-		stat  = 5;
+		status  = 5;
 	} else if(Turn_Counter >= turn){
 		Car_Forward(Speed);
 	} else {
@@ -158,41 +160,34 @@ void Execute_Auto_Mode(){
 				STATUS = STOPPED;
 				Logger = Logger + 1;
 			}
-		} else if((Sonar_Difference > 20 && stat == 5) || stat == 7){
-				if(stat == 5)
-				Turn_Counter = 0;		
-				stat = 7;
-				Car_Right_Auto(Speed, 2);
-		} else if((Error > 4 && Sonar_Difference < 1 && stat == 5) || stat == 1){
-			if(stat == 5)
-				Turn_Counter = 0;
-			
-			stat = 1;
-			Car_Forward_Auto(Speed, 1);
-		} else if((Error > 4 && Sonar_Difference >= 1 && stat == 5) || stat == 2){
-			if(stat == 5)
-				Turn_Counter = 0;
-		
-			stat = 2;
-			Car_Left_Auto(Speed, 1);
-		} else if((Error < -4 && Sonar_Difference <= -1 && stat == 5) || stat == 3){
-			if(stat == 5)
-				Turn_Counter = 0;	
-				
-				stat = 3;
-				Car_Right_Auto(Speed, 1);
-		} else if((Error < -4 && Sonar_Difference > -1 && stat == 5) || stat == 4){
-			if(stat == 5)
-				Turn_Counter = 0;
-			
-			stat = 4;
-			Car_Forward_Auto(Speed, 1);
-		} else if(Turn_Counter == 0 || stat == 0 || stat == 5) {
-			if(stat == 5)
-				Turn_Counter = 0;
-			
-			stat = 0;
-			Car_Forward_Auto(Speed, 1);
+		} else if(Sonar_Distance < 10){
+				if(Sonar_Difference > 0){
+					Car_Auto(60, 40);
+				}else{
+					Car_Auto(100, -10);
+				}
+		} else if(Sonar_Distance < 20 ){
+			if(Sonar_Difference > 0){
+					Car_Auto(50, 50);
+				}else{
+					Car_Auto(100, 30);
+				}
+		}	else if(Sonar_Distance > 35){
+			if(Sonar_Difference>=0){
+				Car_Auto(10, 100);
+			}
+			else{
+					Car_Auto(30, 30);
+			}
+		}else if( Sonar_Distance > 25 ){
+			if(Sonar_Difference >= 0){
+					Car_Auto(25, 100);		
+				}else{
+					Car_Auto(45, 45);
+				}
+		} 
+		else { 
+			Car_Auto(90, 90);
 		}
 	}
 }
@@ -200,7 +195,7 @@ void Execute_Auto_Mode(){
 void Car_Execute(){	
 	Sonar_Distance = Read_Distance();
 	Error =  Sonar_Distance - 25;
-	Sonar_Difference = Sonar_Distance - (Read_Difference(12) + Read_Difference(6)) * 0.5;
+	Sonar_Difference = (Read_Difference(12) + Read_Difference(6)) * 0.5;
 	Left_LDR = Read_Left_LDR();
 	Right_LDR = Read_Right_LDR();
 	Speed = Read_Potentiometer();
@@ -238,7 +233,7 @@ void Car_Execute(){
 			} else if(strcmp("STATUS\r\n", HM10Buffer) == 0){
 					char stat[256];
 					HM10_ClearBuffer();
-					sprintf(stat, "STATUS\r\n{\"distance\":%d,\"light_level_left\":%d,\"light_level_right\":%d,\"op_mode\":\"TEST\"}\r\n", Sonar_Distance, Left_LDR, Rigth_LDR);
+					sprintf(stat, "STATUS\r\n{\"distance\":%d,\"light_level_left\":%d,\"light_level_right\":%d,\"op_mode\":\"TEST\"}\r\n", Sonar_Distance, Left_LDR, Right_LDR);
 					
 					HM10_SendCommand(stat);
 			} else {
@@ -257,7 +252,7 @@ void Car_Execute(){
 			} else if(strcmp("STATUS\r\n", HM10Buffer) == 0){
 					char stat[256];
 					HM10_ClearBuffer();
-					sprintf(stat, "STATUS\r\n{\"distance\":%d,\"light_level_left\":%d,\"light_level_right\":%d,\"op_mode\":\"AUTO\"}\r\n", Sonar_Distance, Left_LDR, Rigth_LDR);
+					sprintf(stat, "STATUS\r\n{\"distance\":%d,\"light_level_left\":%d,\"light_level_right\":%d,\"op_mode\":\"AUTO\"}\r\n", Sonar_Distance, Left_LDR, Right_LDR);
 
 					HM10_SendCommand(stat);
 			} else {

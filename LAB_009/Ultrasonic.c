@@ -12,8 +12,11 @@ uint8_t ultrasonicSensorNewDataAvailable = 0;
 uint8_t ultrasonicSensorTriggerStart = 0;
 uint8_t ultrasonicSensorCaptureRisingEdge = 0;
 
-uint32_t const dataSize = 21;
-sensor_data_t sensorData[] = {25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
+uint32_t const dataSize = 3;
+uint32_t sensorDataSample[] = {25, 25, 25,25, 25, 25,25, 25, 25,25, 25, 25,25, 25, 25,25, 25, 25,25, 25};
+uint32_t sampleSize = 20;
+uint32_t samplePointer = 0;
+sensor_data_t sensorData[] = {25, 25, 25}; // , 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
 uint32_t pointer = 0;
 
 void Ultrasonic_Init() {
@@ -119,7 +122,7 @@ void TIMER3_IRQHandler() {
 	else {
 		ultrasonicSensorFallingCaptureTime = TIMER3->CR0;
 		ultrasonicSensorNewDataAvailable = 1;
-		sensorData[pointer%21] = (ultrasonicSensorFallingCaptureTime - ultrasonicSensorRisingCaptureTime) / 58;
+		sensorData[pointer%dataSize] = (ultrasonicSensorFallingCaptureTime - ultrasonicSensorRisingCaptureTime) / 58;
 		pointer ++;
 		LPC_TIM3->CCR = (1 << 0) | (1 << 2);
 		ultrasonicSensorCaptureRisingEdge = 1;
@@ -155,9 +158,13 @@ sensor_data_t median(sensor_data_t* data) {
 }
 
 int32_t Read_Distance(){
-	return median(&sensorData[(pointer + dataSize - 3) % dataSize]);
+	sensorDataSample[samplePointer%sampleSize] = median(sensorData);   
+	return sensorDataSample[(samplePointer++)%sampleSize];
 }
 
 int32_t Read_Difference(int edge){
-	return median(&sensorData[(pointer + dataSize - edge) % dataSize]);
+	
+	return sensorDataSample[((samplePointer-1) + sampleSize)%sampleSize]-sensorDataSample[((samplePointer-1) - edge + sampleSize)%sampleSize];
+	
+	//return median(sensorData);
 }
