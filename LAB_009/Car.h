@@ -14,6 +14,9 @@ typedef enum {
 	TEST
 } Operation_Mode;
 
+#define LDR_THRESHOLD 650
+#define CAR_TEST_TURN_COUNT 6
+
 void Car_Init(void);
 void Car_Forward(int speed);
 void Car_Backward(int speed);

@@ -12,10 +12,9 @@ Car_Status STATUS;
 Operation_Mode MODE;
 uint32_t Left_LDR = 900, Right_LDR = 900, Speed = 90, Logger = 0, status = 0;
 int32_t Sonar_Distance = 25;
-double Sonar_Difference = 0, Error = 0;
+double Sonar_Difference = 0;
 
 void Car_Init(){
-	External_Init();
 	HM10_Init();
 	LDR_Init();
 	Timer_Init();
@@ -23,32 +22,16 @@ void Car_Init(){
 	LED_Init();
 	Motor_Init();
 	Ultrasonic_Init();
-	Ultrasonic_Trigger_Timer_Init();
-	Ultrasonic_Capture_Timer_Init();	
-	Ultrasonic_Start_Trigger_Timer();
+	External_Init();
 
-	
 	STATUS = STOPPED;
 	MODE = TEST;
-	HM10_SendCommand("TESTING\r\n");
 }
 
 void Car_Forward(int speed){
 	LEDS_Forward();
 	Motor_Forward(speed);
 	STATUS = FORWARD;
-}
-
-void Car_Forward_Auto(int speed, int turn){
-	LEDS_Forward();
-	STATUS = FORWARD;
-	
-	if(Turn_Counter >=  turn){
-		Turn_Counter = 0;
-		status  = 5;
-	} else {
-			Motor_Forward(speed);
-	}
 }
 
 void Car_Backward(int speed){
@@ -62,24 +45,9 @@ void Car_Right(int speed, int turn){
 	STATUS = RIGHT;
 
 	if(Turn_Counter >= turn){
-		if(MODE == TEST)
-			Car_Stop();
-		else
-			Car_Forward(Speed);
+		Car_Stop();
 	} else {
 		Motor_Right(speed);	
-	}
-}
-
-void Car_Right_Auto(int speed, int turn){
-	LEDS_Right();
-	STATUS = RIGHT;
-
-	if(Turn_Counter >= turn){
-		Turn_Counter = 0;
-		status  = 5;
-	} else {
-		Motor_Right(speed);
 	}
 }
 
@@ -88,47 +56,25 @@ void Car_Left(int speed, int turn){
 	STATUS = LEFT;
 
 	if(Turn_Counter >= turn){
-		if(MODE == TEST)
-			Car_Stop();
-		else
-			Car_Forward(Speed);
-	} else {
-		Motor_Left(speed);
-	}
-}
-
-void Car_Left_Auto(int speed, int turn){
-	LEDS_Left();
-	STATUS = LEFT;
-
-	if(Turn_Counter >= 3 * turn){
-		Turn_Counter = 0;
-		status  = 5;
-	} else if(Turn_Counter >= turn){
-		Car_Forward(Speed);
+		Car_Stop();
 	} else {
 		Motor_Left(speed);
 	}
 }
 
 void Car_Auto(int leftSpeed, int rightSpeed){
-	if(leftSpeed >  70 && rightSpeed > 70)
-		LEDS_Forward();
-	else if(leftSpeed > 70)
-		LEDS_Right();
-	else if(rightSpeed > 70)
-		LEDS_Left();
-	
-	Motor_Auto(leftSpeed, rightSpeed);
+	LEDS_Forward();
+	Motor_Auto(leftSpeed * Speed / 100, rightSpeed * Speed / 100);
 	STATUS = FORWARD;
 }
+
 void Car_Stop(){
 	LEDS_Off();
 	Motor_Stop();
 }
 
 void Execute_Test_Mode(){
-	if(Left_LDR < 650 || Right_LDR < 650){
+	if(Left_LDR < LDR_THRESHOLD || Right_LDR < LDR_THRESHOLD){
 		Car_Stop();
 	} else {
 		switch (STATUS){
@@ -142,10 +88,10 @@ void Execute_Test_Mode(){
 				Car_Backward(Speed);
 				break;
 			case RIGHT:
-				Car_Right(Speed, 6);
+				Car_Right(Speed, CAR_TEST_TURN_COUNT);
 				break;
 			case LEFT:
-				Car_Left(Speed, 6);
+				Car_Left(Speed, CAR_TEST_TURN_COUNT);
 				break;
 		}
 	}
@@ -153,18 +99,19 @@ void Execute_Test_Mode(){
 
 void Execute_Auto_Mode(){
 	if(STATUS != STOPPED){
-		if(Left_LDR < 650 || Right_LDR < 650){
+		if(Left_LDR < LDR_THRESHOLD || Right_LDR < LDR_THRESHOLD){
 			if(Logger == 0){
 				Car_Stop();
 				HM10_SendCommand("FINISH\r\n");
 				STATUS = STOPPED;
 				Logger = Logger + 1;
 			}
-		} else if(Sonar_Distance < 10){
+		} 
+		else if(Sonar_Distance < 15){
 				if(Sonar_Difference > 0){
-					Car_Auto(60, 40);
+					Car_Auto(60, 25);
 				}else{
-					Car_Auto(100, -10);
+					Car_Auto(100, -5);
 				}
 		} else if(Sonar_Distance < 20 ){
 			if(Sonar_Difference > 0){
@@ -194,7 +141,6 @@ void Execute_Auto_Mode(){
 
 void Car_Execute(){	
 	Sonar_Distance = Read_Distance();
-	Error =  Sonar_Distance - 25;
 	Sonar_Difference = (Read_Difference(12) + Read_Difference(6)) * 0.5;
 	Left_LDR = Read_Left_LDR();
 	Right_LDR = Read_Right_LDR();

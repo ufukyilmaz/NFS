@@ -22,6 +22,10 @@ uint32_t pointer = 0;
 void Ultrasonic_Init() {
 	IOCON_TRIGGER |= 0x03;
 	IOCON_ECHO |= 0x03;
+	
+	Ultrasonic_Trigger_Timer_Init();
+	Ultrasonic_Capture_Timer_Init();	
+	Ultrasonic_Start_Trigger_Timer();
 }
 
 void Ultrasonic_Trigger_Timer_Init() {
@@ -163,8 +167,5 @@ int32_t Read_Distance(){
 }
 
 int32_t Read_Difference(int edge){
-	
 	return sensorDataSample[((samplePointer-1) + sampleSize)%sampleSize]-sensorDataSample[((samplePointer-1) - edge + sampleSize)%sampleSize];
-	
-	//return median(sensorData);
 }
