@@ -61,7 +61,7 @@ One of them is Test mode which will be used to test the car using serial communi
 |P1.31|P20|GPIO|IN2 - Right Motor|
 |P2.10|P23|EINT0|Speedometer|
 |P1.6|P27|GPIO|FL LED|
-|P1.6|P29|PWM0[2]|ENB - Right Motor|
-|P1.6|P30|PWM0[1]|ENA - Left Motor|
+|P1.3|P29|PWM0[2]|ENB - Right Motor|
+|P1.2|P30|PWM0[1]|ENA - Left Motor|
 |P0.5|P33|GPIO|IN4 - Right Motors|
 |P0.4|P34|GPIO|IN3 - Right Motors|
