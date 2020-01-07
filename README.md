@@ -50,8 +50,8 @@ One of them is Test mode which will be used to test the car using serial communi
 |P1.23|P6|GPIO|BL LED|
 |P1.20|P7|PWM1[2]|LED Blinking|
 |P0.21|P8|GPIO|FR LED|
-|P0.0|P9|UART3 TX|WiFi RX|
-|P0.1|P10|UART3 RX|WiFi TX|
+|P0.0|P9|UART3 TX|Bluetooth RX|
+|P0.1|P10|UART3 RX|Bluetooth TX|
 |P0.9|P11|T2_MAT_3|Ultrasonic Trigger|
 |P0.23|P15|T3_CAP_0|Ultrasonic Echo|
 |P0.24|P16|ADC0[1]|Potentiometer|
